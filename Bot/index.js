@@ -6,7 +6,7 @@ const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const TOKEN = process.env.TOKEN; // stores token from .env
 
 // Create a new client instance
-const client = new Client({ intents: [GatewayIntentBits.Guilds] });
+const client = new Client({ intents: [GatewayIntentBits.Guilds, GatewayIntentBits.GuildMessages, GatewayIntentBits.GuildMessageReactions] });
 
 // load events file path and get any files ending in js as an array
 const eventsPath = path.join(__dirname, 'events');

@@ -1,17 +1,10 @@
-const {
-    ActionRowBuilder,
-    ButtonBuilder,
-    ButtonStyle,
-    Events,
-} = require("discord.js");
+const { Events } = require("discord.js");
 
 // event that will execute code when your application receives an interaction
 module.exports = {
     name: Events.InteractionCreate,
     async execute(interaction) {
         if (!interaction.isChatInputCommand()) return;
-        // logs the interaction for info
-        // console.log(interaction);
 
         // gets the commands interactions
         const command = interaction.client.commands.get(
