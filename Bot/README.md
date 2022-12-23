@@ -16,6 +16,8 @@
 ### Built With
 
 - [Discord.js](https://discord.js.org/#/)
+- [Sequelize](https://sequelize.org/)
+- [SQLite3](https://www.sqlite.org/index.html)
 
 ### Prerequisites
 
