@@ -68,6 +68,12 @@ _Below is an example of how you can instruct your audience on installing and set
     node ./dbInit.js
     ```
 
+7. Deploy/update slash commands
+
+    ```sh
+    node ./deploy-commands.js  
+    ```
+
 ### Docker Setup
 
 1. Change to the Discord bot project directory.
