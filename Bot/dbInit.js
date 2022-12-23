@@ -15,6 +15,7 @@ const Dislikes = require('./models/Dislikes.js')(sequelize, Sequelize.DataTypes)
 
 const force = process.argv.includes('--force') || process.argv.includes('-f');
 
+// seeds db
 sequelize.sync({ force }).then(async () => {
 	const shuffles = [
 		Shuffle.upsert({ id: 1, duration: 20, active: true }),

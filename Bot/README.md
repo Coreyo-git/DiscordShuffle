@@ -61,3 +61,9 @@ _Below is an example of how you can instruct your audience on installing and set
     const CLIENTID = '2234...';
     const GUILDID = '1342...';
 	```
+
+6. Init DataBase with seed etc, run in Bot directory
+
+	 ```sh
+	node ./dbInit.js 
+	```
