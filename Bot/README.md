@@ -15,17 +15,17 @@
 
 ### Built With
 
-- [Discord.js](https://discord.js.org/#/)
-- [Sequelize](https://sequelize.org/)
-- [SQLite3](https://www.sqlite.org/index.html)
+-   [Discord.js](https://discord.js.org/#/)
+-   [Sequelize](https://sequelize.org/)
+-   [SQLite3](https://www.sqlite.org/index.html)
 
 ### Prerequisites
 
-- npm
+-   npm
 
-  ```sh
-   npm install npm@latest -g
-  ```
+    ```sh
+     npm install npm@latest -g
+    ```
 
 ### Installation
 
@@ -46,24 +46,45 @@ _Below is an example of how you can instruct your audience on installing and set
     ```
 
 5. Enter your Tokens and keys within in `.env` or `.config` if you wish to change configurations
-    .env JS config
+   .env JS config
 
     ```js
-    TOKEN = "MSD23DF..."
-    CLIENTID = "2234..."
-    GUILDID = "1342..."
+    TOKEN = "MSD23DF...";
+    CLIENTID = "2234...";
+    GUILDID = "1342...";
     ```
 
     .config JS config
 
     ```js
-    const TOKEN = 'MSD23DF...';
-    const CLIENTID = '2234...';
-    const GUILDID = '1342...';
-	```
+    const TOKEN = "MSD23DF...";
+    const CLIENTID = "2234...";
+    const GUILDID = "1342...";
+    ```
 
 6. Init DataBase with seed etc, run in Bot directory
 
-	 ```sh
-	node ./dbInit.js 
+    ```sh
+    node ./dbInit.js
+    ```
+
+### Docker Setup
+
+1. Change to the Discord bot project directory.
+
+	```sh
+	cd /Bot
+	```
+
+2. Build the docker container for the Discord bot.
+
+    ```sh
+    docker build -t discord-bot -f ./Dockerfile .
+    ```
+
+
+    Run the docker container.
+
+    ```sh
+	docker run -d discord-bot
 	```
