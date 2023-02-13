@@ -1,5 +1,6 @@
-const { SlashCommandBuilder, Collection } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const { Likes } = require("../dbObjects.js");
+const { addUser } = require("../functions/addUser.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -21,35 +22,35 @@ module.exports = {
             option.setName("like_5").setDescription("Like #5")
         ),
     async execute(interaction) {
+		addUser(interaction.user.tag);
         const l1 = interaction.options.getString("like_1");
         const l2 = interaction.options.getString("like_2");
         const l3 = interaction.options.getString("like_3");
         const l4 = interaction.options.getString("like_4");
         const l5 = interaction.options.getString("like_5");
 
-        Likes.destroy({
-            // remove all old likes
+        // remove all old likes
+        await Likes.destroy({
             where: {
                 username: interaction.user.tag,
             },
         });
 
-		// create likes if they exist
+        // create likes if they exist
         if (l1) {
-            Likes.create({ username: interaction.user.tag, value: l1 });
+            await Likes.create({ username: interaction.user.tag, value: l1 });
         }
         if (l2) {
-            Likes.create({ username: interaction.user.tag, value: l2 });
+            await Likes.create({ username: interaction.user.tag, value: l2 });
         }
-
         if (l3) {
-            Likes.create({ username: interaction.user.tag, value: l3 });
+            await Likes.create({ username: interaction.user.tag, value: l3 });
         }
         if (l4) {
-            Likes.create({ username: interaction.user.tag, value: l4 });
+            await Likes.create({ username: interaction.user.tag, value: l4 });
         }
         if (l5) {
-            Likes.create({ username: interaction.user.tag, value: l5 });
+            await Likes.create({ username: interaction.user.tag, value: l5 });
         }
 
         return interaction.reply(
