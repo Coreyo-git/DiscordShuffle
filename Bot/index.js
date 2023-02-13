@@ -1,5 +1,6 @@
 const fs = require("node:fs"); // is used to read the commands directory and identify our fscommand files.
 const path = require("node:path"); // helps construct paths to access files and directories.
+const { Shuffle, UserShuffle, Users, Likes, Dislikes} = require('./dbObjects.js');
 // Require the necessary discord.js classes
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
 const { token } = require('./config.json');
