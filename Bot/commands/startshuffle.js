@@ -52,15 +52,15 @@ module.exports = {
                 return;
             }
 			// if the amount of users is uneven pop the last element off
-			if(usersArray.length % 2 === 0 )
+			if(usersArray.length % 2 !== 0 )
 			{
 				usersArray.pop();
 			}
 
             let shuffledUsers = addUsersToShuffle(usersArray, shuffle_id);
-			let shuffledUsersReply = "The shuffle is allocated as below \n"  
+			let shuffledUsersReply = `The shuffle is allocated as below \n`  
 			for(let i = 0; i < shuffledUsers.length - 1; i+=2) {
-				shuffledUsersReply += "|" + shuffledUsers[i] + " is paired with " + shuffledUsers[i+1] + "|\n";
+				shuffledUsersReply += `| **${shuffledUsers[i]}** is paired with **${shuffledUsers[i+1]}** |\n`;
 			}
             interaction.followUp(shuffledUsersReply);
         });
