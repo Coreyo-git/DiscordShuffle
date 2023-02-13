@@ -57,8 +57,7 @@ sequelize.sync({ force }).then(async () => {
 	];
 
 	const userShuffles = [
-		UserShuffle.upsert({ username: "Corey#9390", shuffle_id: 1 }),
-		UserShuffle.upsert({ username: "Jhonny#1290", shuffle_id: 1 }),
+		UserShuffle.upsert({ user_1: "Corey#9390", user_2: "Jhonny#1290", shuffle_id: 1 }),
 	];
 
 	await Promise.all(shuffles);

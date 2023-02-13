@@ -13,7 +13,8 @@ const Users = require('./models/Users.js')(sequelize, Sequelize.DataTypes);
 const Likes = require('./models/Likes.js')(sequelize, Sequelize.DataTypes);
 const Dislikes = require('./models/Dislikes.js')(sequelize, Sequelize.DataTypes);
 
-UserShuffle.hasMany(Users, { foreignKey: 'username', as: 'user' });
+UserShuffle.hasMany(Users, { foreignKey: 'user1', as: 'user1' });
+UserShuffle.hasMany(Users, { foreignKey: 'user2', as: 'user2' });
 UserShuffle.hasMany(Shuffle, { foreignKey: 'id', as: 'shuffle' });
 
 Shuffle.belongsToMany(Users, { foreignKey: 'username', through: UserShuffle, uniqueKey: false})
