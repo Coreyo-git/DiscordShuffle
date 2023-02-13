@@ -1,9 +1,8 @@
-const fs = require("node:fs"); // is used to read the commands directory and identify our command files.
+const fs = require("node:fs"); // is used to read the commands directory and identify our fscommand files.
 const path = require("node:path"); // helps construct paths to access files and directories.
-require("dotenv").config(); // used for accessing the .env tokens
 // Require the necessary discord.js classes
 const { Client, Collection, Events, GatewayIntentBits } = require("discord.js");
-const TOKEN = process.env.TOKEN; // stores token from .env
+const { token } = require('./config.json');
 // const db = require("./dbContext");
 
 // Create a new client instance
@@ -63,4 +62,4 @@ for (const file of commandFiles) {
 }
 
 // Log in to Discord with your client's token
-client.login(TOKEN);
+client.login(token);
