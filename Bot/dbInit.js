@@ -18,46 +18,46 @@ const force = process.argv.includes('--force') || process.argv.includes('-f');
 // seeds db
 sequelize.sync({ force }).then(async () => {
 	const shuffles = [
-		Shuffle.upsert({ id: 1, duration: 20, active: true }),
+		Shuffle.upsert({ id: 1, genre: "Shonen" }),
 	];
 
 	const users = [
-		Users.upsert({ id: 1, username: "Corey#9390" }),
-		Users.upsert({ id: 2, username: "Jhonny#1290" }),
+		Users.upsert({ id: 1, user_id: "352040458098311168", username: "Corey#9390", nickname: "Coreyo" }),
+		Users.upsert({ id: 2, user_id: "352040458098311167", username: "Jhonny#1290", nickname: "Jhonny" }),
 
 	];
 
 	const likes = [
-		Likes.upsert({ id: 1, username: "Corey#9390", value: "Isekai" }),
-		Likes.upsert({ id: 2, username: "Corey#9390", value: "Romance" }),
-		Likes.upsert({ id: 3, username: "Corey#9390", value: "Shounen" }),
-		Likes.upsert({ id: 4, username: "Corey#9390", value: "Test" }),
-		Likes.upsert({ id: 5, username: "Corey#9390", value: "Stuff" }),
+		Likes.upsert({ id: 1, user_id: "352040458098311168", value: "Isekai" }),
+		Likes.upsert({ id: 2, user_id: "352040458098311168", value: "Romance" }),
+		Likes.upsert({ id: 3, user_id: "352040458098311168", value: "Shounen" }),
+		Likes.upsert({ id: 4, user_id: "352040458098311168", value: "Test" }),
+		Likes.upsert({ id: 5, user_id: "352040458098311168", value: "Stuff" }),
 
-		Likes.upsert({ id: 1, username: "Jhonny#1290", value: "Musicals" }),
-		Likes.upsert({ id: 2, username: "Jhonny#1290", value: "Shoujo" }),
-		Likes.upsert({ id: 3, username: "Jhonny#1290", value: "Horror" }),
-		Likes.upsert({ id: 4, username: "Jhonny#1290", value: "Gore" }),
-		Likes.upsert({ id: 5, username: "Jhonny#1290", value: "Brrrrr" }),
+		Likes.upsert({ id: 1, user_id: "352040458098311167", value: "Musicals" }),
+		Likes.upsert({ id: 2, user_id: "352040458098311167", value: "Shoujo" }),
+		Likes.upsert({ id: 3, user_id: "352040458098311167", value: "Horror" }),
+		Likes.upsert({ id: 4, user_id: "352040458098311167", value: "Gore" }),
+		Likes.upsert({ id: 5, user_id: "352040458098311167", value: "Brrrrr" }),
 
 	];
 
 	const dislikes = [
-		Dislikes.upsert({ id: 1, username: "Corey#9390", value: "Idol Shows" }),
-		Dislikes.upsert({ id: 2, username: "Corey#9390", value: "Gundam" }),
-		Dislikes.upsert({ id: 3, username: "Corey#9390", value: "Etcetc" }),
-		Dislikes.upsert({ id: 4, username: "Corey#9390", value: "Test" }),
-		Dislikes.upsert({ id: 5, username: "Corey#9390", value: "Stuff" }),
+		Dislikes.upsert({ id: 1, user_id: "352040458098311168", value: "Idol Shows" }),
+		Dislikes.upsert({ id: 2, user_id: "352040458098311168", value: "Gundam" }),
+		Dislikes.upsert({ id: 3, user_id: "352040458098311168", value: "Etcetc" }),
+		Dislikes.upsert({ id: 4, user_id: "352040458098311168", value: "Test" }),
+		Dislikes.upsert({ id: 5, user_id: "352040458098311168", value: "Stuff" }),
  
-		Dislikes.upsert({ id: 1, username: "Jhonny#1290", value: "Isekai" }),
-		Dislikes.upsert({ id: 2, username: "Jhonny#1290", value: "Slice of Life" }),
-		Dislikes.upsert({ id: 3, username: "Jhonny#1290", value: "Romance" }),
-		Dislikes.upsert({ id: 4, username: "Jhonny#1290", value: "Seinen " }),
-		Dislikes.upsert({ id: 5, username: "Jhonny#1290", value: "Yes" }),
+		Dislikes.upsert({ id: 1, user_id: "352040458098311167", value: "Isekai" }),
+		Dislikes.upsert({ id: 2, user_id: "352040458098311167", value: "Slice of Life" }),
+		Dislikes.upsert({ id: 3, user_id: "352040458098311167", value: "Romance" }),
+		Dislikes.upsert({ id: 4, user_id: "352040458098311167", value: "Seinen " }),
+		Dislikes.upsert({ id: 5, user_id: "352040458098311167", value: "Yes" }),
 	];
 
 	const userShuffles = [
-		UserShuffle.upsert({ user_1: "Corey#9390", user_2: "Jhonny#1290", shuffle_id: 1 }),
+		UserShuffle.upsert({ user_1_id: "352040458098311168", user_2_id: "352040458098311167", shuffle_id: 1 }),
 	];
 
 	await Promise.all(shuffles);

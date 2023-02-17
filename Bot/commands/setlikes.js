@@ -22,7 +22,11 @@ module.exports = {
             option.setName("like_5").setDescription("Like #5")
         ),
     async execute(interaction) {
-		addUser(interaction.user.tag);
+        await addUser({
+            user_id: interaction.user.id,
+            username: interaction.user.tag,
+            nickname: interaction.user.username,
+        });
         const l1 = interaction.options.getString("like_1");
         const l2 = interaction.options.getString("like_2");
         const l3 = interaction.options.getString("like_3");
@@ -32,29 +36,30 @@ module.exports = {
         // remove all old likes
         await Likes.destroy({
             where: {
-                username: interaction.user.tag,
+                user_id: interaction.user.id,
             },
         });
 
         // create likes if they exist
         if (l1) {
-            await Likes.create({ username: interaction.user.tag, value: l1 });
+            await Likes.create({ user_id: interaction.user.id, value: l1 });
         }
         if (l2) {
-            await Likes.create({ username: interaction.user.tag, value: l2 });
+            await Likes.create({ user_id: interaction.user.id, value: l2 });
         }
         if (l3) {
-            await Likes.create({ username: interaction.user.tag, value: l3 });
+            await Likes.create({ user_id: interaction.user.id, value: l3 });
         }
         if (l4) {
-            await Likes.create({ username: interaction.user.tag, value: l4 });
+            await Likes.create({ user_id: interaction.user.id, value: l4 });
         }
         if (l5) {
-            await Likes.create({ username: interaction.user.tag, value: l5 });
+            await Likes.create({ user_id: interaction.user.id, value: l5 });
         }
 
-        return interaction.reply(
-            `Hello ${interaction.user.tag}, Your likes have been set to: ${l1}, ${l2}, ${l3}, ${l4}, ${l5}`
-        );
+        return await interaction.reply({
+            content: `Hello ${interaction.user.username}, Your likes have been set to: ${l1}, ${l2}, ${l3}, ${l4}, ${l5}`,
+            ephemeral: true,
+        });
     },
 };

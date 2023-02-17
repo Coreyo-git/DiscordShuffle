@@ -6,11 +6,7 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("startshuffle")
         .setDescription("begins a new shuffle event")
-        .addStringOption((option) =>
-            option
-                .setName("genre")
-                .setDescription("Set a genre for the shuffle")
-        )
+
         .addIntegerOption((option) =>
             option
                 .setName("timer")
@@ -20,6 +16,11 @@ module.exports = {
                 .setMinValue(1)
                 .setMaxValue(72)
                 .setRequired(true)
+        )
+        .addStringOption((option) =>
+            option
+                .setName("genre")
+                .setDescription("Set a genre for the shuffle")
         ),
     async execute(interaction) {
         const timer = interaction.options.getInteger("timer");
@@ -48,7 +49,11 @@ module.exports = {
 
         var usersArray = [];
         collector.on("collect", (reaction, user) => {
-            usersArray.push(user.tag);
+            usersArray.push({
+				user_id: user.id, 
+				username: user.tag,
+				nickname: user.username
+			});
         });
 
         collector.on("end", (collected) => {

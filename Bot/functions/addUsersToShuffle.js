@@ -5,8 +5,8 @@ module.exports = {
 		shuffleUsers(usersArray);
         for (var i = 0; i < usersArray.length - 1; i+=2) {
             UserShuffle.create({
-                user_1: usersArray[i],
-				user_2: usersArray[i+1],
+                user_1: usersArray[i].user_id,
+				user_2: usersArray[i+1].user_id,
                 shuffle_id: shuffle_id,
             });
         }
