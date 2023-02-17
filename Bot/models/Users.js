@@ -5,6 +5,9 @@ module.exports = (sequelize, DataTypes) => {
 			primaryKey: true,
 			allowNull: false,
 		},
+		nickname: { // NOT IMPLEMENTED YET
+			type: DataTypes.STRING,
+		},
 	}, {
 		timestamps: false,
 	});

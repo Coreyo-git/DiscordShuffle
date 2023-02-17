@@ -1,4 +1,4 @@
-const { SlashCommandBuilder, Collection } = require("discord.js");
+const { SlashCommandBuilder } = require("discord.js");
 const { addNewShuffle } = require("../functions/addNewShuffle.js");
 const { addUsersToShuffle } = require("../functions/addUsersToShuffle.js");
 
@@ -6,6 +6,11 @@ module.exports = {
     data: new SlashCommandBuilder()
         .setName("startshuffle")
         .setDescription("begins a new shuffle event")
+        .addStringOption((option) =>
+            option
+                .setName("genre")
+                .setDescription("Set a genre for the shuffle")
+        )
         .addIntegerOption((option) =>
             option
                 .setName("timer")
@@ -19,9 +24,9 @@ module.exports = {
     async execute(interaction) {
         const timer = interaction.options.getInteger("timer");
 
-        let shuffle_id = await addNewShuffle();
+        let shuffle_id = await addNewShuffle(genre);
         const message = await interaction.reply({
-            content: `A new shuffle #${shuffle_id} has started, sign up will last ${String(
+            content: `A new shuffle #${shuffle_id} has started the genre is ${genre}, sign up will last ${String(
                 timer
             )} hour! React with 👍 to join or 👎 to skip this round. \n __if there is an uneven amount of users at the end the last user will be removed from the shuffle__`,
             fetchReply: true,
@@ -51,17 +56,18 @@ module.exports = {
                 interaction.reply("No Reactions");
                 return;
             }
-			// if the amount of users is uneven pop the last element off
-			if(usersArray.length % 2 !== 0 )
-			{
-				usersArray.pop();
-			}
+            // if the amount of users is uneven pop the last element off
+            if (usersArray.length % 2 !== 0) {
+                usersArray.pop();
+            }
 
             let shuffledUsers = addUsersToShuffle(usersArray, shuffle_id);
-			let shuffledUsersReply = `The shuffle is allocated as below \n`  
-			for(let i = 0; i < shuffledUsers.length - 1; i+=2) {
-				shuffledUsersReply += `| **${shuffledUsers[i]}** is paired with **${shuffledUsers[i+1]}** |\n`;
-			}
+            let shuffledUsersReply = `The shuffle is allocated as below \n`;
+            for (let i = 0; i < shuffledUsers.length - 1; i += 2) {
+                shuffledUsersReply += `| **${
+                    shuffledUsers[i]
+                }** is paired with **${shuffledUsers[i + 1]}** |\n`;
+            }
             interaction.followUp(shuffledUsersReply);
         });
     },
