@@ -1,6 +1,7 @@
 const { SlashCommandBuilder } = require("discord.js");
 const { addNewShuffle } = require("../functions/addNewShuffle.js");
 const { addUsersToShuffle } = require("../functions/addUsersToShuffle.js");
+const { createShuffleDm } = require("../functions/createShuffleDm.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
@@ -24,7 +25,7 @@ module.exports = {
         ),
     async execute(interaction) {
         const timer = interaction.options.getInteger("timer");
-		const genre = interaction.options.getString("genre");
+        const genre = interaction.options.getString("genre");
 
         let shuffle_id = await addNewShuffle(genre);
         const message = await interaction.reply({
@@ -36,31 +37,30 @@ module.exports = {
         message.react("👍").then(() => message.react("👎"));
 
         const filter = (reaction, user) => {
-            return (
-                ["👍"].includes(reaction.emoji.name)// &&
-                // user.id != message.author.id
-            );
+            return ["👍"].includes(reaction.emoji.name); //&& // TODO: uncomment conditional
+            //user.id != message.author.id
         };
 
         const collector = message.createReactionCollector({
             filter,
-            time: timer * 36000,
+            time: timer * 2000, // TODO: Keep at 3600000
             errors: ["time"],
         });
 
         var usersArray = [];
         collector.on("collect", (reaction, user) => {
             usersArray.push({
-				user_id: user.id, 
-				username: user.tag,
-				nickname: user.username
-			});
+                user_id: user.id,
+                username: user.tag,
+                nickname: user.username,
+            });
         });
 
         collector.on("end", (collected) => {
             if (collected.size === 0) {
                 interaction.reply("No Reactions");
                 return;
+                msg.send(value);
             }
             // if the amount of users is uneven pop the last element off
             if (usersArray.length % 2 !== 0) {
@@ -72,8 +72,39 @@ module.exports = {
             for (let i = 0; i < shuffledUsers.length - 1; i += 2) {
                 shuffledUsersReply += `| **${shuffledUsers[i].username} | ${
                     shuffledUsers[i].nickname
-                }** is paired with **${shuffledUsers[i + 1].username} | ${shuffledUsers[i + 1].nickname}** |\n`;
+                }** is paired with **${shuffledUsers[i + 1].username} | ${
+                    shuffledUsers[i + 1].nickname
+                }** |\n`;
+
+                // get user info and send messages to each
+                const dm1 = createShuffleDm(
+                    shuffledUsers[i + 1],
+                    interaction.guild.name,
+                    shuffle_id,
+                    genre
+                );
+                interaction.client.users
+                    .fetch(shuffledUsers[i].user_id)
+                    .then((msg) => {
+                        // msg.send(value);
+                        console.log("ss" + dm1);
+                        // console.log(value);
+                    });
+
+                // let dm2 = createShuffleDm(
+                //     shuffledUsers[i],
+                //     interaction.guild.name,
+                //     shuffle_id,
+                //     genre
+                // );
+                // interaction.client.users
+                //     .fetch(shuffledUsers[i + 1].user_id)
+                //     .then((msg) => {
+                //         // msg.send(value);
+                //         console.log(dm2);
+                //     });
             }
+
             interaction.followUp(shuffledUsersReply);
         });
     },
