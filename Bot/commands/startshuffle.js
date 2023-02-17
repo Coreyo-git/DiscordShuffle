@@ -24,10 +24,11 @@ module.exports = {
         ),
     async execute(interaction) {
         const timer = interaction.options.getInteger("timer");
+		const genre = interaction.options.getString("genre");
 
         let shuffle_id = await addNewShuffle(genre);
         const message = await interaction.reply({
-            content: `A new shuffle #${shuffle_id} has started the genre is ${genre}, sign up will last ${String(
+            content: `A new shuffle #${shuffle_id} has started the genre is **${genre}**, sign up will last ${String(
                 timer
             )} hour! React with 👍 to join or 👎 to skip this round. \n __if there is an uneven amount of users at the end the last user will be removed from the shuffle__`,
             fetchReply: true,
@@ -36,14 +37,14 @@ module.exports = {
 
         const filter = (reaction, user) => {
             return (
-                ["👍"].includes(reaction.emoji.name) &&
-                user.id != message.author.id
+                ["👍"].includes(reaction.emoji.name)// &&
+                // user.id != message.author.id
             );
         };
 
         const collector = message.createReactionCollector({
             filter,
-            time: timer * 3600000,
+            time: timer * 36000,
             errors: ["time"],
         });
 
@@ -69,9 +70,9 @@ module.exports = {
             let shuffledUsers = addUsersToShuffle(usersArray, shuffle_id);
             let shuffledUsersReply = `The shuffle is allocated as below \n`;
             for (let i = 0; i < shuffledUsers.length - 1; i += 2) {
-                shuffledUsersReply += `| **${
-                    shuffledUsers[i]
-                }** is paired with **${shuffledUsers[i + 1]}** |\n`;
+                shuffledUsersReply += `| **${shuffledUsers[i].username} | ${
+                    shuffledUsers[i].nickname
+                }** is paired with **${shuffledUsers[i + 1].username} | ${shuffledUsers[i + 1].nickname}** |\n`;
             }
             interaction.followUp(shuffledUsersReply);
         });

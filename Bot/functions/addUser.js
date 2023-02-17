@@ -4,7 +4,6 @@ module.exports = {
     // adds the user if it doesn't already exist
     async addUser(user) {
         if ((await checkIfUserExists(user)) === false) {
-            console.log("addUser");
             await Users.create({
                 user_id: user.user_id,
                 username: user.username,
@@ -24,6 +23,8 @@ async function checkIfUserExists(user) {
     });
 
     if (res[0]) {
+		// updates the user by id incase the user has changed their info
+		await Users.update({ username: user.username, nickname: user.nickname }, {where: { user_id: user.user_id}});
         return true;
     }
     return false;
