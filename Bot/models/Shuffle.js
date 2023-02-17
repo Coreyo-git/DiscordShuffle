@@ -9,14 +9,6 @@ module.exports = (sequelize, DataTypes) => {
 		genre: {
 			type: DataTypes.STRING,
 		},
-		duration: {
-			type: DataTypes.INTEGER,
-		},
-		active: {
-			type: DataTypes.BOOLEAN,
-			allowNull: false,
-			defaultValue: true
-		},
 	}, {
 		timestamps: false,
 	});
