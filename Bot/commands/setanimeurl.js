@@ -1,11 +1,11 @@
 const { SlashCommandBuilder } = require("discord.js");
-const { updateAnimeList } = require("../functions/updateAnimeList.js");
+const { updateUserAnimeUrl } = require("../functions/updateUserAnimeUrl.js");
 
 module.exports = {
     data: new SlashCommandBuilder()
-        .setName("setanimeurl")
+        .setName("setanimelisturl")
         .setDescription(
-            "Set a link to your animelist website or info on shows you've watched"
+            "Set a link to your anime list website or info on shows you've watched"
         )
         .addStringOption((option) =>
             option
@@ -17,12 +17,14 @@ module.exports = {
         ),
     async execute(interaction) {
         const url = interaction.options.getString("url");
-        await updateAnimeList({
-            user_id: interaction.user.id,
-            username: interaction.user.tag,
-            nickname: interaction.user.username,
-            anime_list_url: url,
-        });
+        await updateUserAnimeUrl(
+            {
+                user_id: interaction.user.id,
+                username: interaction.user.tag,
+                nickname: interaction.user.username,
+            },
+            url
+        );
 
         return await interaction.reply({
             content: `Hello ${interaction.user.username}, Your anime list url has been set to: \n > ${url}`,

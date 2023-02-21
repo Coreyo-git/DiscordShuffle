@@ -1,7 +1,7 @@
 const { Users } = require("../dbObjects.js");
 
 module.exports = {
-    // adds the user if it doesn't already exist
+    // updates the users info and url
     async updateUserAnimeUrl(user, url) {
         // updates the user by id incase the user has changed their info
         await Users.update(
