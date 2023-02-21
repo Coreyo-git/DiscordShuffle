@@ -8,6 +8,7 @@ module.exports = {
                 user_id: user.user_id,
                 username: user.username,
                 nickname: user.nickname,
+				anime_list_url: user.anime_list_url,
             });
         }
     },

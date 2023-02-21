@@ -12,6 +12,9 @@ module.exports = (sequelize, DataTypes) => {
 		nickname: { // NOT IMPLEMENTED YET
 			type: DataTypes.STRING,
 		},
+		anime_list_url: {
+			type: DataTypes.STRING,
+		}
 	}, {
 		timestamps: false,
 	});
